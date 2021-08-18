@@ -115,6 +115,7 @@ body {
     font-size: 37px;
     line-height: 44px;
     color: #635854;
+    text-transform: uppercase;
 }
 
 .counter {
