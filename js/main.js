@@ -1,20 +1,38 @@
 $(document).ready(function() {
-    var currentFloor = 2;
+    var currentFloor = 2; //текущий этаж
     var counterUp = $(".counter-up");
-    $(".home-img path").on('mouseover', function() {
-        currentFloor = $(this).attr('data-floor');
-        $('.counter').text(currentFloor);
+    var counterDown = $(".counter-down");
+    //наведение мышкой на этаж
+    $('.home-img path').on("mouseover", function() {
+        $(".home-img path").removeClass('current-floor'); // удаляем активный класс у этажей
+        currentFloor = $(this).attr('data-floor'); //gjkexftv значение текущего этажа
+        $(".counter").text(currentFloor); // записываем значение этажа в счетчик справа
     });
 
-    counterUp.on("click", function() {
-        if (currentFloor < 18) {
-            currentFloor++;
+    counterUp.on("click", function() { // отслеживаем клик по кнопке вверх
+        if (currentFloor < 18) { //проверяем значение этажа, не юолее 18
+            currentFloor++; // прибавляем один этаж
             usCurrentFloor = currentFloor.toLocaleString("en-Us", {
                 minimumIntegerDigits: 2,
-                useGrouping: false
+                useGrouping: false // форматируем переменную с этажем 02
             });
-            $(".counter").text(usCurrentFloor);
-            $(`[data-floor=${usCurrentFloor}]`).toogleClass(".current-floor");
+            $(".counter").text(usCurrentFloor); // записываем значение этажа в счетчик справа
+            $(".home-img path").removeClass('current-floor'); // удаляем активный класс у этажей
+            $(`[data-floor=${usCurrentFloor}]`).toggleClass('current-floor'); //подсвечивем текущее значение
         }
     });
+
+
+    // отслеживаем клик по кнопке вверх
+    counterDown.on('click', function() {
+        if (currentFloor > 2)
+            currentFloor--;
+        usCurrentFloor = currentFloor.toLocaleString("en-Us", {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+        });
+        $(".counter").text(usCurrentFloor);
+        $(".home-img path").removeClass('current-floor');
+        $(`[data-floor=${usCurrentFloor}]`).toggleClass('current-floor');
+    })
 });
