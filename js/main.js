@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function() { 
     var currentFloor = 2; //текущий этаж
     var counterUp = $(".counter-up");
     var counterDown = $(".counter-down");
