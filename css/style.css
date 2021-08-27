@@ -1,38 +1,51 @@
 @font-face {
-    font-family: "Bebas Neue";
-    src: local("Bebas Neue Regular Regular"), local("BebasNeueRegular"), url("../fonts/BebasNeueRegular.woff2") format("woff2"), url("../fonts/BebasNeueRegular.woff") format("woff");
+    font-family: 'Bebas Neue Cyrillic';
+    src: local('Bebas Neue Cyrillic'), local('BebasNeueCyrillic'),
+        url('../fonts/BebasNeueCyrillic.woff2') format('woff2'),
+        url('../fonts/BebasNeueCyrillic.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: "Bebas Neue";
+    src: local("BebasNeueRegular"), url("../fonts/BebasNeueRegular.woff2") format("woff2"),
+      url("../fonts/BebasNeueRegular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+
 
 * {
     box-sizing: border-box;
 }
 
 body {
-    font-family: "Bebas Neue", sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .header {
     background-color: #635854;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-bottom: 4px solid #3596f5;
+    padding-top: 12px; /* внутренний отступ сверху */
+    padding-bottom: 12px; /* внутренний отступ снизу */
+    border-bottom: 4px solid #3596F5;
 }
 
 .navbar {
     max-width: 1280px;
     margin: auto;
-    display: flex;
-    justify-content: space-between;
+    display: flex;  /* сделали блок гибким */
+    justify-content: space-between; /* расставили элементы по краям */
     align-items: center;
 }
 
 .navbar-menu {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+    margin: 0;  /* отключаем внешние отступы */
+    padding: 0; /* отключаем внутренние отступы */
+    list-style: none; /* отключаем точки */
     display: flex;
     text-align: center;
 }
@@ -44,35 +57,31 @@ body {
 
 .navbar-link {
     text-decoration: none;
-    color: #fff;
-}
-
-.navbar-contacts {
-    text-align: right;
+    color: #FFF;
 }
 
 .navbar-text {
     display: block;
-    color: #fff;
-    margin-bottom: 4px;
+    color: white;
     font-size: 14px;
     line-height: 16px;
+    margin-bottom: 4px;
 }
 
 .navbar-phone {
+    color: white;
+    text-decoration: none;
     font-weight: 700;
     font-size: 17px;
     line-height: 20px;
-    text-align: center;
-    color: #ffffff;
-    text-decoration: none;
 }
 
 .main {
-    display: flex;
     max-width: 1280px;
     margin: auto;
     padding-top: 54px;
+    display: flex;
+    margin-bottom: 100px;
 }
 
 .main-info {
@@ -82,20 +91,13 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding-top: 70px;
-    padding-bottom: 70px;
 }
-
-.home-img path {
+.home-image path {
     opacity: 0;
     cursor: pointer;
 }
 
-.home-img path:hover {
-    opacity: 1;
-}
-
-path.current-floor {
+.home-image path:hover {
     opacity: 1;
 }
 
@@ -111,55 +113,58 @@ path.current-floor {
     cursor: pointer;
 }
 
-.counter-arrow-down {
+.counter-down {
     transform: rotateX(180deg);
 }
 
+.button-primary {
+    background-color: #3596F5;
+    color: white;
+    border-radius: 6px;
+    padding: 16px 36px;
+    cursor: pointer;
+    border: none;
+}
+
 .main-title {
-    margin: 0;
-    font-family: "Bebas Neue Cyrillic", sans-serif;
+    text-transform: uppercase;
+    font-family: 'Bebas Neue', sans-serif;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 37px;
     line-height: 37px;
     color: #635854;
-    text-transform: uppercase;
 }
 
 .floor-counter {
-    font-family: "Bebas Neue Cyrillic", sans-serif;
-    width: 400;
-    font-size: 124px;
+    font-family: 'Bebas Neue', sans-serif;
     color: #635854;
+    font-size: 124px;
     margin-top: 10px;
+    
 }
 
-.button-primare {
-    background: #3596f5;
-    border-radius: 6px;
-    color: #fff;
-    border: none;
-    padding: 16px 36px;
-    cursor: pointer;
+path.current-floor {
+    opacity: 1;
 }
 
 .modal {
-    position: fixed;
-    left: 0;
-    top: 0;
+    position: fixed; /* фиксированная позиция, поверх сайта */
+    left: 0; /* приклеиваем к левому краю */
+    top: 0; /* приклеиваем к верху */
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
+    background-color: rgba(0, 0, 0, 0.8); /* полупрозрачность */
+    display: flex; /* родительский блок гибкий */
     justify-content: center;
     align-items: center;
     opacity: 0;
     transform: scale(0);
-    transition: opacity 0.2c;
+    transition: opacity 0.2s;
 }
 
 .is-open {
-    transform: scale(1);
     opacity: 1;
+    transform: scale(1);
 }
 
 .modal-dialog {
@@ -169,94 +174,84 @@ path.current-floor {
     background-color: #fff;
     flex-grow: 1;
     display: flex;
-    opacity: 0;
-    transform: translateY(-10%);
-    transition: transform 0.2c, opacity 0.2c;
-    transition-delay: 0.2c;
-}
-
-.is-open>.modal-dialog {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .modal-image {
-    background-color: #ebebeb;
+    background-color: #EBEBEB;
     width: 60%;
+}
+
+.modal-image {
     text-align: center;
-    padding: 50px;
-}
-
-.flats path {
-    opacity: 0;
-}
-
-.flats path:hover {
-    opacity: 1;
-    cursor: pointer;
+    padding: 50px 0px 57px 0px;
 }
 
 .modal-title {
-    margin-top: 0;
-    margin-bottom: 25px;
-    font-family: "Bebas Neue", sans-serif;
+    font-family: 'Bebas Neue', sans-serif;
     font-weight: normal;
     font-size: 24px;
-    line-height: 29px;
+    line-height: 24px;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: bold;
 }
 
 .modal-info {
-    width: 40%;
-    padding: 50px 45px;
-}
-
-.flat-item {
-    margin-bottom: 10px;
+    padding: 50px 46px;
 }
 
 .flat-list {
-    margin-top: 55px;
     padding: 0;
     list-style: none;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    color: #635854;
+    margin-top: 55px;
 }
-
+.flat-item {
+    margin-bottom: 10px;
+}
 .flat-link {
-    list-style: none;
-    text-decoration: none;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
     font-size: 16px;
     line-height: 19px;
     color: #635854;
+    text-decoration: none;
 }
 
 .flat-link:hover {
-    color: #3596f5;
+    color: #3596F5;
     text-decoration: underline;
 }
 
 .modal-alert {
-    margin-top: 56px;
-    font-family: Roboto;
     font-style: italic;
+    color: #635854;
+    margin-top: 56px;
     font-weight: normal;
     font-size: 16px;
     line-height: 19px;
-    color: #635854;
 }
 
 .modal-close-button {
     position: absolute;
-    right: 27px;
-    top: 38px;
-    cursor: pointer;
-    border: none;
+    right: 0;
+    top: 0;
     background-color: #fff;
+    border: none;
+    margin-top: 38px;
+    margin-right: 27px;
+    cursor: pointer;
 }
+
+.flats path {
+    opacity: 0;
+    cursor: pointer;
+}
+
+.flats path:hover {
+    opacity: 1;
+}
+
+.flats path.current-flat { opacity: 1; }
+
+.flat-link.current-flat {
+    color: #3596F5;
+    text-decoration: underline;
+    }

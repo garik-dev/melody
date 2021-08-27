@@ -1,52 +1,71 @@
-$(document).ready(function() { 
-    var currentFloor = 2; //текущий этаж
-    var counterUp = $(".counter-up");
-    var counterDown = $(".counter-down");
-    var modal = $(".modal");
-    var modalCloseButton = $(".modal-close-button");
-    var viewFlatsButton = $(".view-flats")
-        //наведение мышкой на этаж
-    $('.home-img path').on("mouseover", function() {
-        $(".home-img path").removeClass('current-floor'); // удаляем активный класс у этажей
-        currentFloor = $(this).attr('data-floor'); //gjkexftv значение текущего этажа
-        $(".counter").text(currentFloor); // записываем значение этажа в счетчик справа
+$(document).ready(function () { /* функция готовности DOM */
+    var currentFloor = 2; /* переменная, где хранится текущий этаж */
+    var floorPath = $('.home-image path'); /* каждый отдельный этаж в SVG */
+    var counterUp = $('.counter-up');    /* кнопка увелечения этажа */
+    var counterDown = $('.counter-down'); /* кнопка уменьшения этажа */
+    var modal = $('.modal');   // модальное окно //
+    var modalCloseButton = $('.modal-close-button'); // кнопка закрытия модального окна //
+    var buttonPrimary = $('.button-primary'); // кнопка //
+    var flatLinks = $('.flat-link')
+    var flatPath = $('.flats path')
+
+    /* при навведении мышки на этаж */
+    floorPath.on('mouseover', function(){
+        floorPath.removeClass("current-floor"); /* удаляем активный класс у этажей */
+        currentFloor = $(this).attr("data-floor"); /* получаем значение текущего этажа*/
+        $('.counter').text(currentFloor); /* записываем значение этажа в счетчик */
     });
 
-    $(".home-img path").on('click', toggleModal); //вызывает модальное окно по клику
-    modalCloseButton.on('click', toggleModal);
-    viewFlatsButton.on('click', toggleModal);
+    flatPath.on('mouseover', function(){
+        flatPath.removeClass('current-flat');
+        flatLinks.removeClass('current-flat');
+        currentFlat = $(this).attr("data-flat");
+        $(`[data-flat="${currentFlat}"]`).addClass('current-flat');
+    });
 
-    //закрывает модальное окно
+    flatLinks.on('mouseover', function(){
+        flatPath.removeClass('current-flat');
+        flatLinks.removeClass('current-flat');
+        currentFlat = $(this).attr("data-flat");
+        $(`[data-flat="${currentFlat}"]`).addClass('current-flat');
+    });
 
-    counterUp.on("click", function() { // отслеживаем клик по кнопке вверх
-        if (currentFloor < 18) { //проверяем значение этажа, не юолее 18
-            currentFloor++; // прибавляем один этаж
-            usCurrentFloor = currentFloor.toLocaleString("en-Us", {
-                minimumIntegerDigits: 2,
-                useGrouping: false // форматируем переменную с этажем 02
-            });
-            $(".counter").text(usCurrentFloor); // записываем значение этажа в счетчик справа
-            $(".home-img path").removeClass('current-floor'); // удаляем активный класс у этажей
-            $(`[data-floor=${usCurrentFloor}]`).toggleClass('current-floor'); //подсвечивем текущее значение
+    floorPath.on('click', function (){
+        modal.toggleClass('is-open'); // при клике на любой элемент этажа, открывается модальное окно //
+    });
+
+    modalCloseButton.on('click', function (){
+        modal.removeClass('is-open'); // при клике на "закрывающий значок" модального окна, закроется все модальное окно
+    })
+
+
+    buttonPrimary.on('click', function (){
+        modal.toggleClass('is-open'); // при клике на кнопку, откроется модальное окно //
+    })
+
+
+    counterUp.on('click', function (){
+        /* отслеживаем клик по кнопке вверх */
+        if (currentFloor < 18) {
+        /* проверяем значение у этажа, оно не должно быть больше 18 */
+            currentFloor++; /* прибавляем один этаж */
+            usCorrentFloor = currentFloor.toLocaleString('en-US', {minimumIntegerDigits: 2, uceGroupping: false}); /* форматируем переменную с этажом, чтобы было не 2, а 02 */
+            $('.counter').text(usCorrentFloor); /* записываем значение этажа в счетчик справа */
+            floorPath.removeClass("current-floor"); /* удаляем активный класс у этажей */
+            $(`[data-floor=${usCorrentFloor}]`).toggleClass('current-floor'); /* подсвечиваем текущий этаж */
         }
     });
 
-
-    // отслеживаем клик по кнопке вверх
-    counterDown.on('click', function() {
-        if (currentFloor > 2)
-            currentFloor--;
-        usCurrentFloor = currentFloor.toLocaleString("en-Us", {
-            minimumIntegerDigits: 2,
-            useGrouping: false
-        });
-        $(".counter").text(usCurrentFloor);
-        $(".home-img path").removeClass('current-floor');
-        $(`[data-floor=${usCurrentFloor}]`).toggleClass('current-floor');
-    })
-
-    function toggleModal() {
-        modal.toggleClass('is-open');
-    }; // функция открыть-закрыть модальное окно
-
+    counterDown.on('click', function (){
+        /* отслеживаем клик по кнопке вниз */
+        if (currentFloor > 2) {
+         /* проверяем значение у этажа, оно не должно быть меньше 18 */
+            currentFloor--;  /* отнимаем один этаж */
+            usCorrentFloor = currentFloor.toLocaleString('en-US', {minimumIntegerDigits: 2, uceGroupping: false});  /* форматируем переменную с этажом, чтобы было не 2, а 02 */
+            $('.counter').text(usCorrentFloor); /* записываем значение этажа в счетчик справа */
+            floorPath.removeClass("current-floor"); /* удаляем активный класс у этажей */
+            $(`[data-floor=${usCorrentFloor}]`).toggleClass('current-floor'); /* подсвечиваем текущий этаж */
+        }
+    });
 });
+
